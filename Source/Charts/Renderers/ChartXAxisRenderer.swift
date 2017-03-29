@@ -247,7 +247,11 @@ public class ChartXAxisRenderer: ChartAxisRendererBase
         
         var position = CGPoint(x: 0.0, y: 0.0)
         
-        for i in self.minX.stride(to: self.maxX, by: xAxis.axisLabelModulus)
+        
+        // modified by Paul Legault 20160826
+        // axisGridModulusUsed and axisGridModulus added
+        //
+        for i in self.minX.stride(to: self.maxX, by: xAxis.axisGridModulusUsed ? xAxis.axisGridModulus : xAxis.axisLabelModulus)
         {
             position.x = CGFloat(i)
             position.y = 0.0
@@ -264,6 +268,8 @@ public class ChartXAxisRenderer: ChartAxisRendererBase
             }
         }
         
+        // end Modif Paul Legault 20160725
+
         CGContextRestoreGState(context)
     }
     

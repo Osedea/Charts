@@ -208,6 +208,10 @@ public class ChartLegend: ChartComponentBase
     public var calculatedLabelSizes = [CGSize]()
     public var calculatedLabelBreakPoints = [Bool]()
     public var calculatedLineSizes = [CGSize]()
+    // Modification 24/03/2017
+    // Added property
+    public var bottomAdjustment = CGFloat(0.0)
+    // End modification
     
     public override init()
     {

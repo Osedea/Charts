@@ -603,7 +603,7 @@ public class BarLineChartViewBase: ChartViewBase, BarLineScatterCandleBubbleChar
             
             let h = getHighlightByTouchPoint(recognizer.locationInView(self))
             
-            if (h === nil || h!.isEqual(self.lastHighlighted))
+            if (h === nil || h!.isEqualCH(self.lastHighlighted))    // Paul Legault 2016-11-30
             {
                 self.highlightValue(highlight: nil, callDelegate: true)
                 self.lastHighlighted = nil
@@ -806,7 +806,7 @@ public class BarLineChartViewBase: ChartViewBase, BarLineScatterCandleBubbleChar
                 
                 if ((h === nil && lastHighlighted !== nil) ||
                     (h !== nil && lastHighlighted === nil) ||
-                    (h !== nil && lastHighlighted !== nil && !h!.isEqual(lastHighlighted)))
+                    (h !== nil && lastHighlighted !== nil && !h!.isEqualCH(lastHighlighted))) // Paul Legault 2016-11-30
                 {
                     self.lastHighlighted = h
                     self.highlightValue(highlight: h, callDelegate: true)

@@ -120,58 +120,72 @@ public class ChartHighlight: NSObject
         return "Highlight, xIndex: \(_xIndex), dataIndex (combined charts): \(_dataIndex),dataSetIndex: \(_dataSetIndex), stackIndex (only stacked barentry): \(_stackIndex), value: \(_value)"
     }
     
-    public override func isEqual(object: AnyObject?) -> Bool
+    // Paul Legault 2016-11-30 Quick fix
+    //
+    public func isEqualCH(object: ChartHighlight?) -> Bool
     {
-        if (object === nil)
-        {
-            return false
-        }
-        
-        if (!object!.isKindOfClass(self.dynamicType))
-        {
-            return false
-        }
-        
-        if (object!.xIndex != _xIndex)
-        {
-            return false
-        }
-        
-        if (object!.dataIndex != dataIndex)
-        {
-            return false
-        }
-        
-        if (object!.dataSetIndex != _dataSetIndex)
-        {
-            return false
-        }
-        
-        if (object!.stackIndex != _stackIndex)
-        {
-            return false
-        }
-        
-        if (object!.value != value)
-        {
-            return false
-        }
-        
-        return true
+        NSLog("WARNING isEqualCH Quick fix to review")
+        return false
     }
+    
+    // Paul Legault 2016-11-30 self.dynamicType deprecated in swift 2.3
+    //
+//    public override func isEqual(object: AnyObject?) -> Bool
+//    {
+//        if (object === nil)
+//        {
+//            return false
+//        }
+//        
+//        if (!object!.isKindOfClass(self.dynamicType))
+//        {
+//            return false
+//        }
+//        
+//        if (object!.xIndex != _xIndex)
+//        {
+//            return false
+//        }
+//        
+//        if (object!.dataIndex != dataIndex)
+//        {
+//            return false
+//        }
+//        
+//        if (object!.dataSetIndex != _dataSetIndex)
+//        {
+//            return false
+//        }
+//        
+//        if (object!.stackIndex != _stackIndex)
+//        {
+//            return false
+//        }
+//        
+//        if (object!.value != value)
+//        {
+//            return false
+//        }
+//        
+//        return true
+//    }
+
 }
 
+// Paul Legault 2016-11-30 self.dynamicType deprecated in swift 2.3
+//
 func ==(lhs: ChartHighlight, rhs: ChartHighlight) -> Bool
 {
+    NSLog("WARNING == ChartHighlight Quick fix to review")
     if (lhs === rhs)
     {
         return true
     }
     
-    if (!lhs.isKindOfClass(rhs.dynamicType))
-    {
-        return false
-    }
+//    if (!lhs.isKindOfClass(rhs.dynamicType))
+//    {
+//        return false
+//    }
     
     if (lhs._xIndex != rhs._xIndex)
     {
@@ -200,3 +214,44 @@ func ==(lhs: ChartHighlight, rhs: ChartHighlight) -> Bool
     
     return true
 }
+
+//func ==(lhs: ChartHighlight, rhs: ChartHighlight) -> Bool
+//{
+//    if (lhs === rhs)
+//    {
+//        return true
+//    }
+//    
+//    if (!lhs.isKindOfClass(rhs.dynamicType))
+//    {
+//        return false
+//    }
+//    
+//    if (lhs._xIndex != rhs._xIndex)
+//    {
+//        return false
+//    }
+//    
+//    if (lhs._dataIndex != rhs._dataIndex)
+//    {
+//        return false
+//    }
+//    
+//    if (lhs._dataSetIndex != rhs._dataSetIndex)
+//    {
+//        return false
+//    }
+//    
+//    if (lhs._stackIndex != rhs._stackIndex)
+//    {
+//        return false
+//    }
+//    
+//    if (lhs._value != rhs._value)
+//    {
+//        return false
+//    }
+//    
+//    return true
+//}
+

@@ -233,7 +233,10 @@ public class ChartLegendRenderer: ChartRendererBase
                 posY = yoffset
                 
             case .Bottom:
-                posY = viewPortHandler.chartHeight - yoffset - legend.neededHeight
+                // Modification 24/03/2017
+                // Added legend.bottomAdjustment
+                posY = viewPortHandler.chartHeight - yoffset - legend.neededHeight + legend.bottomAdjustment
+                // End modification
                 
             case .Center:
                 posY = (viewPortHandler.chartHeight - legend.neededHeight) / 2.0 + yoffset

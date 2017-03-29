@@ -53,6 +53,15 @@ public class ChartXAxis: ChartAxisBase
     /// the modulus that indicates if a value at a specified index in an array(list) for the x-axis-labels is drawn or not. Draw when `(index % modulus) == 0`.
     public var axisLabelModulus = Int(1)
     
+    // added by Paul Legault 20160826
+    
+    /// Grid Modulus splitted from axisLabelModulus
+    
+    public var axisGridModulusUsed = false
+    public var axisGridModulus = Int(1)
+    
+    // end Modif Paul Legault 20160725
+
     /// Is axisLabelModulus a custom value or auto calculated? If false, then it's auto, if true, then custom.
     /// 
     /// **default**: false (automatic modulus)

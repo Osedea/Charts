@@ -470,6 +470,17 @@ types are aliased to either their UI* implementation (on iOS) or their NS* imple
 		}
 	}
 
+	extension NSTouch
+    {
+		/** Touch locations on OS X are relative to the trackpad, whereas on iOS they are actually *on* the view. */
+		func locationInView(view: NSView) -> NSPoint
+        {
+			let n = self.normalizedPosition
+			let b = view.bounds
+			return NSPoint(x: b.origin.x + b.size.width * n.x, y: b.origin.y + b.size.height * n.y)
+		}
+	}
+
 	extension NSScrollView
     {
 		var scrollEnabled: Bool
@@ -509,7 +520,7 @@ types are aliased to either their UI* implementation (on iOS) or their NS* imple
 		image.lockFocus()
 		let rep = NSBitmapImageRep(focusedViewRect: NSMakeRect(0, 0, image.size.width, image.size.height))
 		image.unlockFocus()
-		return rep?.representationUsingType(.PNG, properties: [:])
+		return rep?.representationUsingType(.NSPNGFileType, properties: [:])
 	}
 
 	func NSUIImageJPEGRepresentation(image: NSUIImage, _ quality: CGFloat = 0.9) -> NSData?
@@ -517,7 +528,7 @@ types are aliased to either their UI* implementation (on iOS) or their NS* imple
 		image.lockFocus()
 		let rep = NSBitmapImageRep(focusedViewRect: NSMakeRect(0, 0, image.size.width, image.size.height))
 		image.unlockFocus()
-		return rep?.representationUsingType(.JPEG, properties: [NSImageCompressionFactor: quality])
+		return rep?.representationUsingType(.NSJPEGFileType, properties: [NSImageCompressionFactor: quality])
 	}
 
 	private var imageContextStack: [CGFloat] = []
@@ -539,8 +550,8 @@ types are aliased to either their UI* implementation (on iOS) or their NS* imple
 
 			let colorSpace = CGColorSpaceCreateDeviceRGB()
 			let ctx = CGBitmapContextCreate(nil, width, height, 8, 4*width, colorSpace, (opaque ?  CGImageAlphaInfo.NoneSkipFirst.rawValue : CGImageAlphaInfo.PremultipliedFirst.rawValue))
-			CGContextConcatCTM(ctx!, CGAffineTransformMake(1, 0, 0, -1, 0, CGFloat(height)))
-			CGContextScaleCTM(ctx!, scale, scale)
+			CGContextConcatCTM(ctx, CGAffineTransformMake(1, 0, 0, -1, 0, CGFloat(height)))
+			CGContextScaleCTM(ctx, scale, scale)
 			NSUIGraphicsPushContext(ctx!)
 		}
 	}
@@ -551,9 +562,9 @@ types are aliased to either their UI* implementation (on iOS) or their NS* imple
         {
 			let ctx = NSUIGraphicsGetCurrentContext()
 			let scale = imageContextStack.last!
-			if let theCGImage = CGBitmapContextCreateImage(ctx!)
+			if let theCGImage = CGBitmapContextCreateImage(ctx)
             {
-				let size = CGSizeMake(CGFloat(CGBitmapContextGetWidth(ctx!)) / scale, CGFloat(CGBitmapContextGetHeight(ctx!)) / scale)
+				let size = CGSizeMake(CGFloat(CGBitmapContextGetWidth(ctx)) / scale, CGFloat(CGBitmapContextGetHeight(ctx)) / scale)
 				let image = NSImage(CGImage: theCGImage, size: size)
 				return image
 			}

@@ -1011,4 +1011,5 @@ public class ChartViewBase: NSUIView, ChartDataProvider, ChartAnimatorDelegate
             super.nsuiTouchesCancelled(touches, withEvent: event)
         }
     }
+    
 }

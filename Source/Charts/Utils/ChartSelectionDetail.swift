@@ -13,6 +13,7 @@
 //
 
 import Foundation
+import CoreGraphics
 
 public class ChartSelectionDetail: NSObject
 {
@@ -75,48 +76,62 @@ public class ChartSelectionDetail: NSObject
     
     // MARK: NSObject
     
-    public override func isEqual(object: AnyObject?) -> Bool
+    // Paul Legault 2016-11-30 Quick fix
+    //
+    public func isEqualCSD(object: AnyObject?) -> Bool
     {
-        if (object === nil)
-        {
-            return false
-        }
-        
-        if (!object!.isKindOfClass(self.dynamicType))
-        {
-            return false
-        }
-        
-        if (object!.value != _value)
-        {
-            return false
-        }
-        
-        if (object!.dataSetIndex != _dataSetIndex)
-        {
-            return false
-        }
-        
-        if (object!.dataSet !== _dataSet)
-        {
-            return false
-        }
-        
-        return true
+        NSLog("WARNING isEqualCSD Quick fix to review")
+        return false
     }
+
+    // Paul Legault 2016-11-30 self.dynamicType deprecated in swift 2.3
+    //
+//    public override func isEqual(object: AnyObject?) -> Bool
+//    {
+//        if (object === nil)
+//        {
+//            return false
+//        }
+//        
+//        if (!object!.isKindOfClass(self.dynamicType))
+//        {
+//            return false
+//        }
+//        
+//        if (object!.value != _value)
+//        {
+//            return false
+//        }
+//        
+//        if (object!.dataSetIndex != _dataSetIndex)
+//        {
+//            return false
+//        }
+//        
+//        if (object!.dataSet !== _dataSet)
+//        {
+//            return false
+//        }
+//        
+//        return true
+//    }
+
 }
 
+// Paul Legault 2016-11-30 Quick fix
+//
 public func ==(lhs: ChartSelectionDetail, rhs: ChartSelectionDetail) -> Bool
 {
+    NSLog("WARNING == ChartSelectionDetail Quick fix to review")
     if (lhs === rhs)
     {
         return true
     }
     
-    if (!lhs.isKindOfClass(rhs.dynamicType))
-    {
-        return false
-    }
+//    if (!lhs.isKindOfClass(rhs.dynamicType))
+//    {
+//        return false
+//    }
     
     if (lhs.value != rhs.value)
     {
@@ -135,3 +150,35 @@ public func ==(lhs: ChartSelectionDetail, rhs: ChartSelectionDetail) -> Bool
     
     return true
 }
+
+// Paul Legault 2016-11-30 self.dynamicType deprecated in swift 2.3
+//
+//public func ==(lhs: ChartSelectionDetail, rhs: ChartSelectionDetail) -> Bool
+//{
+//    if (lhs === rhs)
+//    {
+//        return true
+//    }
+//    
+//    if (!lhs.isKindOfClass(rhs.dynamicType))
+//    {
+//        return false
+//    }
+//    
+//    if (lhs.value != rhs.value)
+//    {
+//        return false
+//    }
+//    
+//    if (lhs.dataSetIndex != rhs.dataSetIndex)
+//    {
+//        return false
+//    }
+//    
+//    if (lhs.dataSet !== rhs.dataSet)
+//    {
+//        return false
+//    }
+//    
+//    return true
+//}

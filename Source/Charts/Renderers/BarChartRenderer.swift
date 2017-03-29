@@ -31,7 +31,7 @@ public class BarChartRenderer: ChartDataRendererBase
     
     public override func drawData(context context: CGContext)
     {
-        guard let dataProvider = dataProvider, barData = dataProvider.barData else { return }
+        guard let dataProvider = dataProvider, let barData = dataProvider.barData else { return }
         
         for i in 0 ..< barData.dataSetCount
         {
@@ -137,8 +137,15 @@ public class BarChartRenderer: ChartDataRendererBase
                 }
                 
                 // Set the color for the currently drawn value. If the index is out of bounds, reuse colors.
-                CGContextSetFillColorWithColor(context, dataSet.colorAt(j).CGColor)
-                CGContextFillRect(context, barRect)
+                
+                // DONE modified by Paul Legault 20160802
+
+                // CGContextSetFillColorWithColor(context, dataSet.colorAt(j).CGColor)
+                // CGContextFillRect(context, barRect)
+                
+                drawRoundRectWithGradient(context: context, barRect: barRect, isGen: (j == 4), value: y)
+                // end modif Paul Legault 20160802
+                
                 
                 if drawBorder
                 {
@@ -261,6 +268,35 @@ public class BarChartRenderer: ChartDataRendererBase
         CGContextRestoreGState(context)
     }
 
+    // DONE added by Paul Legault 20160802
+    //
+    private func drawRoundRectWithGradient(context context: CGContext, barRect: CGRect, isGen: Bool, value: Double)
+    {
+        let col: CGColor = PMBreakdownOkColor.CGColor
+
+        CGContextSaveGState(context)
+
+        let colorSpace = CGColorSpaceCreateDeviceRGB()
+        let locations: [CGFloat] = [0.0, 1.0]
+        let gradient = CGGradientCreateWithColors(colorSpace, [col, col], locations)    // TODO remove gradient
+        let startPoint = CGPointMake(CGRectGetMidX(barRect), CGRectGetMinY(barRect))
+        let endPoint = CGPointMake(CGRectGetMidX(barRect), CGRectGetMaxY(barRect))
+        
+        CGContextAddRect(context, barRect)
+        CGContextClip(context)
+        CGContextDrawLinearGradient(context, gradient!, startPoint, endPoint, [])
+        
+        let bezierPath = UIBezierPath(roundedRect: barRect, cornerRadius: 8.0)
+        CGContextAddRect(context, barRect)
+        CGContextAddPath(context, bezierPath.CGPath)
+        CGContextEOClip(context)
+        CGContextClearRect(context, barRect)
+        
+        CGContextRestoreGState(context)
+    }
+    
+    // end modif Paul Legault 20160802
+    
     /// Prepares a bar for being highlighted.
     public func prepareBarHighlight(x x: CGFloat, y1: Double, y2: Double, barspacehalf: CGFloat, trans: ChartTransformer, inout rect: CGRect)
     {

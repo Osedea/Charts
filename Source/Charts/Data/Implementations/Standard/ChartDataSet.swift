@@ -476,7 +476,7 @@ public class ChartDataSet: ChartBaseDataSet
     {
         for entry in _yVals
         {
-            if (entry.isEqual(e))
+            if (entry.isEqualCDE(e))    // Paul Legault 2016-11-30
             {
                 return true
             }

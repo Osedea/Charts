@@ -49,36 +49,46 @@ public class ChartDataEntry: NSObject
     
     // MARK: NSObject
     
-    public override func isEqual(object: AnyObject?) -> Bool
+    // Paul Legault 2016-11-30 Quick fix
+    //
+    public func isEqualCDE(object: ChartDataEntry?) -> Bool
     {
-        if (object === nil)
-        {
-            return false
-        }
-        
-        if (!object!.isKindOfClass(self.dynamicType))
-        {
-            return false
-        }
-        
-        if (object!.data !== data && !object!.data.isEqual(self.data))
-        {
-            return false
-        }
-        
-        if (object!.xIndex != xIndex)
-        {
-            return false
-        }
-        
-        if (fabs(object!.value - value) > 0.00001)
-        {
-            return false
-        }
-        
-        return true
+        NSLog("WARNING isEqualCDE Quick fix to review")
+        return false
     }
     
+    // Paul Legault 2016-11-30 self.dynamicType deprecated in swift 2.3
+    //
+//    public override func isEqual(object: AnyObject?) -> Bool
+//    {
+//        if (object === nil)
+//        {
+//            return false
+//        }
+//        
+//        if (!object!.isKindOfClass(self.dynamicType))
+//        {
+//            return false
+//        }
+//        
+//        if (object!.data !== data && !object!.data.isEqual(self.data))
+//        {
+//            return false
+//        }
+//        
+//        if (object!.xIndex != xIndex)
+//        {
+//            return false
+//        }
+//        
+//        if (fabs(object!.value - value) > 0.00001)
+//        {
+//            return false
+//        }
+//        
+//        return true
+//    }
+
     // MARK: NSObject
     
     public override var description: String

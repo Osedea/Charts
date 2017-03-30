@@ -291,9 +291,13 @@ open class BarChartRenderer: BarLineScatterCandleBubbleRenderer
         
         let isSingleColor = dataSet.colors.count == 1
         
+        // Modification added by James Morton 30-03-2017
+        var color: CGColor? = nil
+        
         if isSingleColor
         {
-            context.setFillColor(dataSet.color(atIndex: 0).cgColor)
+            // Modification changed by James Morton 30-03-2017
+            color = dataSet.color(atIndex: 0).cgColor
         }
         
         for j in stride(from: 0, to: buffer.rects.count, by: 1)
@@ -313,10 +317,12 @@ open class BarChartRenderer: BarLineScatterCandleBubbleRenderer
             if !isSingleColor
             {
                 // Set the color for the currently drawn value. If the index is out of bounds, reuse colors.
-                context.setFillColor(dataSet.color(atIndex: j).cgColor)
+                // Modification changed by James Morton 30-03-2017
+                color = dataSet.color(atIndex: j).cgColor
             }
             
-            context.fill(barRect)
+            // Modification changed by James Morton 30-03-2017
+            drawRoundRect(context: context, barRect: barRect, color: color)
             
             if drawBorder
             {
@@ -328,6 +334,22 @@ open class BarChartRenderer: BarLineScatterCandleBubbleRenderer
         
         context.restoreGState()
     }
+    
+    // Modification added by James Morton 30-03-2017
+    //
+    fileprivate func drawRoundRect(context: CGContext, barRect: CGRect, color: CGColor?)
+    {
+        context.saveGState()
+        
+        let bezierPath = UIBezierPath(roundedRect: barRect, cornerRadius: 8.0)
+        context.addPath(bezierPath.cgPath)
+        context.setFillColor(color ?? UIColor.green.cgColor)
+        context.closePath()
+        context.fillPath()
+        
+        context.restoreGState()
+    }
+    // end modification by James Morton 30-03-2017
     
     open func prepareBarHighlight(
         x: Double,

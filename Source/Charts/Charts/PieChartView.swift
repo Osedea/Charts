@@ -121,7 +121,9 @@ open class PieChartView: PieRadarChartViewBase
         
         drawMarkers(context: context)
     }
-    
+
+    // Modification changed by James Morton 30-03-2017
+    //
     internal override func calculateOffsets()
     {
         super.calculateOffsets()
@@ -136,14 +138,13 @@ open class PieChartView: PieRadarChartViewBase
         
         let c = self.centerOffsets
         
-        let shift = (data as? PieChartData)?.dataSet?.selectionShift ?? 0.0
-        
         // create the circle box that will contain the pie-chart (the bounds of the pie-chart)
-        _circleBox.origin.x = (c.x - radius) + shift
-        _circleBox.origin.y = (c.y - radius) + shift
-        _circleBox.size.width = diameter - shift * 2.0
-        _circleBox.size.height = diameter - shift * 2.0
+        _circleBox.origin.x = (c.x - radius)
+        _circleBox.origin.y = (c.y - radius)
+        _circleBox.size.width = diameter
+        _circleBox.size.height = diameter
     }
+    // End modification by James Morton 30-03-2017
     
     internal override func calcMinMax()
     {
